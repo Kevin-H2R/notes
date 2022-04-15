@@ -1,0 +1,47 @@
+version: '3'
+services:
+  back:
+    build: 
+      context: ./back
+      dockerfile: Dockerfile.dev
+    container_name: notes-back-dev
+    image: kevinh2r/notes-back
+    ports:
+      - 3000:3000
+    volumes:
+      - ./back:/usr/src/app
+
+  front:
+    build: 
+      context: ./front
+      dockerfile: Dockerfile.dev
+    container_name: notes-front-dev
+    image: kevinh2r/notes-front
+    ports:
+      - 8080:8080
+    volumes:
+      - './front:/app'
+      - '/app/node_modules'
+    links:
+      - back
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  
+  
+  db:
+    image: mariadb
+    restart: always
+    container_name: notes-mariadb-dev
+    volumes:
+      - notes-data:/var/lib/mariadb/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: notes
+      MYSQL_TCP_PORT: 3308
+      MYSQL_UNIX_PORT: 3308
+    ports: 
+      - 3308:3308
+
+volumes:
+  notes-data:
