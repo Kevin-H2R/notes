@@ -6,5 +6,8 @@
 <script>
 export default {
   name: "HomePage",
+  created() {
+    this.$store.dispatch('fetchNotes')
+  }
 };
 </script>

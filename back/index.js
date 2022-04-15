@@ -1,6 +1,8 @@
 import express from 'express'
 import notes from './routes/notes.js'
+import cors from 'cors'
 const app = express()
+app.use(cors())
 
 app.get('/', async (req, res) => {
   res.json({ hello: 'World' })
