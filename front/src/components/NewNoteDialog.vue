@@ -1,14 +1,16 @@
 <template>
-  <v-dialog v-model="dialog" width="90%">
+  <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
     <template v-slot:activator="{ on, attrs }">
       <v-btn fab color="primary" fixed bottom right v-bind="attrs" v-on="on"
         ><v-icon>mdi-plus</v-icon></v-btn
       >
     </template>
     <v-card>
-      <v-card-title class="text-h5 primary white--text">
-        Nouvelle pensée
-      </v-card-title>
+      <v-toolbar color="primary" dark class="toolbar-no-radius">
+        <div class="text-h4">Nouvelle pensée</div>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="dialog = false"><v-icon>mdi-close</v-icon></v-btn>
+      </v-toolbar>
 
       <v-card-text>
         <v-container>
@@ -63,18 +65,18 @@ export default {
   name: "NewNoteDialog",
   methods: {
     upload() {
-      this.loading = true
+      this.loading = true;
       axios
         .post("http://" + process.env.VUE_APP_HOST + ":3001/notes", {
           content: this.content,
           title: this.title,
         })
         .then(() => {
-          this.loading = false
-          this.title = ""
-          this.content = ""
-          this.dialog = false
-          this.$store.dispatch("fetchNotes")
+          this.loading = false;
+          this.title = "";
+          this.content = "";
+          this.dialog = false;
+          this.$store.dispatch("fetchNotes");
         });
     },
   },
@@ -83,14 +85,18 @@ export default {
       dialog: false,
       content: "",
       title: "",
-      loading: false
-    }
-  }
+      loading: false,
+    };
+  },
 };
 </script>
 <style lang="scss">
 .title_input input {
   max-height: 64px !important;
   height: 64px;
+}
+.toolbar-no-radius {
+  border-top-left-radius: 0!important;
+  border-top-right-radius: 0!important;
 }
 </style>

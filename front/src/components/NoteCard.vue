@@ -15,7 +15,7 @@
     </v-card-text>
     <v-dialog fullscreen v-model="dialog" transition="dialog-bottom-transition">
       <v-card>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="primary" class="toolbar-no-radius">
           <div class="text-h3">{{ title }}</div>
           <v-spacer></v-spacer>
           <v-btn icon @click="save()" v-if="modification"
