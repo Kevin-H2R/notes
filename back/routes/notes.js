@@ -23,7 +23,7 @@ export default function (app) {
         let content = req.body.content
         content = content.replaceAll('\n', '<br/>')
         const id = req.body.id
-        pool.query(`UPDATE notes SET content = "${content}" WHERE id = ${id}`)
+        pool.query(`UPDATE notes SET content = "${content}", update_date = NOW() WHERE id = ${id}`)
         res.json({})
     })
 }
