@@ -9,12 +9,19 @@ export default new Vuex.Store({
     notes: []
   },
   mutations: {
+    setNotes(state, notes) {
+      state.notes = notes
+    },
+    resetNotes(state) {
+      state.notes = []
+    }
   },
   actions: {
-    fetchNotes: () => {
+    fetchNotes: (context) => {
+      context.commit('resetNotes')
       axios.get('http://' + process.env.VUE_APP_HOST + ':3001/notes')
         .then(response => {
-          console.log(response.data)
+          context.commit('setNotes', response.data.notes)
         })
     }
   },
