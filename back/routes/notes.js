@@ -7,7 +7,8 @@ export default function (app) {
     })
 
     app.post('/notes', async (req, res) => {
-        const content = req.body.content
+        let content = req.body.content
+        content = content.replaceAll('\n', '<br/>')
         let title = req.body.title
         if (title === undefined) {
             let today = new Date()
@@ -16,5 +17,13 @@ export default function (app) {
         let result = 
             pool.query(`INSERT INTO notes (title, content, create_date, update_date) VALUES ("${title}", "${content}", NOW(), NOW())`)
         res.json({id: result.insertId})
+    })
+
+    app.post('/notes/save', async (req, res) => {
+        let content = req.body.content
+        content = content.replaceAll('\n', '<br/>')
+        const id = req.body.id
+        pool.query(`UPDATE notes SET content = "${content}" WHERE id = ${id}`)
+        res.json({})
     })
 }
