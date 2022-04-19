@@ -5,6 +5,7 @@
     class="overflow-hidden"
     @click="dialog = true"
     color="white"
+    :ripple="false"
   >
     <v-card-title class="text-h4">{{ title }}</v-card-title>
     <v-card-text>
