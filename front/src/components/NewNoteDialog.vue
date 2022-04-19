@@ -28,6 +28,7 @@
             </v-row>
             <v-textarea
               auto-grow
+              spellcheck="false"
               solo
               flat
               v-model="content"

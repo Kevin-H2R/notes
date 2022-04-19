@@ -39,6 +39,7 @@
                       :readonly="!modification"
                       solo
                       flat
+                      spellcheck="false"
                       auto-grow
                       v-model="textNewLines"
                     />
