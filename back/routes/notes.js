@@ -7,7 +7,7 @@ export default function (app) {
     })
 
     app.post('/notes', async (req, res) => {
-        let content = req.body.content
+        let content = req.body.content.replaceAll(/[\""]/g, '\\"')
         content = content.replaceAll('\n', '<br/>')
         let title = req.body.title
         if (title === undefined) {
@@ -20,7 +20,7 @@ export default function (app) {
     })
 
     app.post('/notes/save', async (req, res) => {
-        let content = req.body.content
+        let content = req.body.content.replaceAll(/[\""]/g, '\\"')
         content = content.replaceAll('\n', '<br/>')
         const id = req.body.id
         pool.query(`UPDATE notes SET content = "${content}", update_date = NOW() WHERE id = ${id}`)

@@ -36,7 +36,6 @@
                     <v-textarea
                       class="text-h6 font-weight-light note-card__textarea"
                       :class="modification ? '' : 'textarea-cursor'"
-                      :outlined="modification"
                       :readonly="!modification"
                       solo
                       flat
